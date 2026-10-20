@@ -1,0 +1,17 @@
+name: Hosted runner probe
+
+# Diagnostic only. Asks GitHub for one hosted ubuntu-latest minute so we can
+# tell an account-wide Actions billing block apart from a per-repo runner
+# routing problem. Manual dispatch only; no secrets, no deploy.
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Say which runner answered
+        run: |
+          echo "runner_name=$RUNNER_NAME arch=$RUNNER_ARCH os=$RUNNER_OS"
+          echo "hosted runner accepted the job"
