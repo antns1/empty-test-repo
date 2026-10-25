@@ -1,0 +1,18 @@
+name: Self-hosted runner probe
+
+# Diagnostic only. Org policy (2026-10-25): no GitHub-hosted runners, so this
+# no longer probes hosted billing; it checks that our self-hosted ARC
+# oracle-light lane picks up a job from this repo. Manual dispatch only;
+# no secrets, no deploy.
+on:
+  workflow_dispatch:
+
+jobs:
+  runner-probe:
+    runs-on: oracle-light
+    timeout-minutes: 5
+    steps:
+      - name: Say which runner answered
+        run: |
+          echo "runner_name=$RUNNER_NAME arch=$RUNNER_ARCH os=$RUNNER_OS"
+          echo "self-hosted oracle-light runner accepted the job"
